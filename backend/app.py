@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
 
 app = Flask(__name__)
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
 # ==========================
 # SIMPAN RIWAYAT ANALISIS
@@ -73,6 +73,6 @@ def analyze():
 # RUN APP
 # ==========================
 if __name__ == "__main__":
-    app.run()
+    pass
 
 
