@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>AgriAI – Analisis Tanaman Pintar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- PWA -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
+    <!-- JS -->
+    <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+
+<body>
+
+<!-- ===== LOADING SCREEN ===== -->
+<div id="loading-screen">
+    <div class="loader"></div>
+    <p>Menyiapkan AgriAI...</p>
+</div>
+
+<!-- ===== LANDING PAGE ===== -->
+<div class="landing fade-in" style="display:none;">
+    <nav class="navbar">
+        <span><i class="fas fa-leaf"></i> AgriAI</span>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>
+                Analisis Tanaman<br>
+                <span>Lebih Cepat & Cerdas</span>
+            </h1>
+
+            <p>
+                Unggah foto daun tanamanmu dan dapatkan
+                <b>analisis kesehatan, nutrisi, dan risiko penyakit</b>
+                berbasis AI.
+            </p>
+
+            <a href="/dashboard" class="btn-main">
+                <i class="fas fa-seedling"></i> Mulai Analisis
+            </a>
+        </div>
+
+        <div class="hero-visual">
+            <i class="fas fa-leaf"></i>
+            <i class="fas fa-cloud-sun"></i>
+            <i class="fas fa-microscope"></i>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features">
+        <div class="feature-card">
+            <i class="fas fa-camera"></i>
+            <h4>Upload Gambar</h4>
+            <p>Ambil foto daun tanaman secara langsung</p>
+        </div>
+
+        <div class="feature-card">
+            <i class="fas fa-brain"></i>
+            <h4>Analisis AI</h4>
+            <p>Deteksi kondisi daun & nutrisi otomatis</p>
+        </div>
+
+        <!-- WEATHER -->
+        <div class="feature-card card-weather" onclick="openWeatherDetail()">
+            <i class="fas fa-cloud-sun"></i>
+            <h4>Cuaca Real-Time</h4>
+            <p id="landingTemp">Memuat cuaca...</p>
+            <small>Klik untuk detail & perkiraan</small>
+        </div>
+    </section>
+</div>
+
+<!-- ===== WEATHER MODAL ===== -->
+<div id="weatherModal" class="weather-modal">
+    <div class="weather-content">
+        <span class="close" onclick="closeWeatherDetail()">&times;</span>
+        <h3>Detail Cuaca</h3>
+        <div id="weatherNow"></div>
+        <h4>Perkiraan 3 Hari</h4>
+        <div id="forecastArea"></div>
+    </div>
+</div>
+
+<!-- ===== LOADING + WEATHER SCRIPT ===== -->
+<script>
+window.addEventListener("load", async () => {
+    setTimeout(() => {
+        document.getElementById("loading-screen").style.display = "none";
+        document.querySelector(".landing").style.display = "block";
+    }, 1200);
+
+    // Update cuaca di landing
+    try {
+        const res = await fetch("/api/weather");
+        const data = await res.json();
+        document.getElementById("landingTemp").innerText =
+            `${data.temp} · ${data.condition}`;
+    } catch {
+        document.getElementById("landingTemp").innerText = "Cuaca tidak tersedia";
+    }
+});
+
+// Service Worker
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/static/service-worker.js");
+}
+</script>
+
+</body>
+</html>
