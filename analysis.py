@@ -4,8 +4,8 @@ import requests
 import random
 import os   # ⬅️ TAMBAHKAN
 
-API_KEY = os.getenv("WEATHER_API_KEY")
-CITY = os.getenv("WEATHER_CITY", "Yogyakarta")
+API_KEY = os.environ.get("OPENWEATHER_API_KEY")
+CITY = os.environ.get("CITY", "Yogyakarta")
 
 
 # =========================
