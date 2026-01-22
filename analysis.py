@@ -1,10 +1,12 @@
 import cv2
 import numpy as np
 import requests
-import random  # Ditambahkan untuk random.randint
+import random
+import os   # ⬅️ TAMBAHKAN
 
-API_KEY = "3d10cfa5515fe6a302f3e1d59d6ebbe6"  # Pastikan ini kunci valid; jangan bagikan di publik
-CITY = "Yogyakarta"
+API_KEY = os.getenv("WEATHER_API_KEY")
+CITY = os.getenv("WEATHER_CITY", "Yogyakarta")
+
 
 # =========================
 # AUTO DETEKSI JENIS DAUN
