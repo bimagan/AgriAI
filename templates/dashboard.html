@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard AgriAI</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- PWA MANIFEST -->
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
+<script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+
+<body class="fade-in">
+<div class="app-container">
+
+<nav class="navbar">
+    <a href="/"><i class="fas fa-arrow-left"></i></a>
+    <span>AgriAI Dashboard</span>
+</nav>
+
+<main class="content">
+<h2>Analisis Tanaman</h2>
+
+<div class="card-green">
+    <i class="fas fa-leaf"></i>
+    <div>
+        <p>Analisis Daun Otomatis</p>
+        <button id="startBtn" class="btn-secondary">Mulai</button>
+    </div>
+</div>
+
+<div id="analysisArea" style="display:none;">
+    <input
+        type="file"
+        id="imageInput"
+        accept="image/*"
+        capture="environment"
+    >
+    <img id="preview" style="display:none;">
+    <button id="analyzeBtn" class="btn-main">Analisis</button>
+</div>
+
+<div id="resultArea" style="display:none;">
+    <div id="resStatus"></div>
+
+    <p>🌱 <b>Jenis Tanaman:</b> <span id="resJenis"></span></p>
+    <p>🍃 <b>Kondisi Daun:</b> <span id="resDaun"></span></p>
+    <p>🧪 <b>Nutrisi:</b> <span id="resNutrisi"></span></p>
+    <p>⚠️ <b>Risiko Penyakit:</b> <span id="resRisiko"></span></p>
+
+    <h4>Rekomendasi</h4>
+    <div id="resRecs"></div>
+</div>
+
+<div class="card">
+    <h3>Skor Kesehatan Tanaman</h3>
+    <div class="progress-bar">
+        <div id="healthBar">0%</div>
+    </div>
+    <p id="healthDesc"></p>
+</div>
+
+<div class="card">
+    <h3>📜 Riwayat Analisis</h3>
+    <div id="historyList"></div>
+</div>
+
+<div class="card-weather" onclick="openWeatherDetail()">
+    <h4><i class="fas fa-cloud-sun"></i> Cuaca Saat Ini</h4>
+    <p>{{ weather.temp }} · {{ weather.condition }}</p>
+    <p>Kelembaban: {{ weather.humidity }}</p>
+    <small>Klik untuk detail & perkir

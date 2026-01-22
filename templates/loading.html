@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>AgriAI</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="loading-body">
+
+<div class="loader-container">
+    <i class="fas fa-leaf leaf-spin"></i>
+    <h2>AgriAI</h2>
+    <p>Menyiapkan sistem...</p>
+</div>
+
+<script>
+setTimeout(() => {
+    window.location.href = "/";
+}, 2500);
+</script>
+
+</body>
+</html>
